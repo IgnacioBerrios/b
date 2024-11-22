@@ -2,9 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import streamlit as st
 
-file_path = 'spotify_songs_dataset.csv'
-
-pf = pd.read_csv(file_path)
+pf = pd.read_csv('spotify_songs_dataset.csv')
 
 contador_lenguaje = pf["language"].value_counts()
 fig, ax = plt.subplots(figsize=(10, 8))
