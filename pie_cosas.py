@@ -1,6 +1,6 @@
 import pandas as pd
 import streamlit as st
-import matplotlib.pyplot as plt
+import plotly.express as px
 
 # Cargar los datos
 file_path = "spotify_songs_dataset.csv"  # Ajustar la ruta si es necesario
@@ -27,18 +27,17 @@ else:
         st.warning("No hay datos para los géneros seleccionados.")
     else:
         # Contar los idiomas, ignorando valores nulos
-        language_counts = filtered_data['language'].dropna().value_counts()
+        language_counts = filtered_data['language'].dropna().value_counts().reset_index()
+        language_counts.columns = ['language', 'count']
 
-        # Crear el gráfico de pie
-        fig, ax = plt.subplots()
-        ax.pie(
-            language_counts, 
-            labels=language_counts.index, 
-            autopct='%1.1f%%', 
-            startangle=90, 
-            colors=plt.cm.tab20.colors
+        # Crear el gráfico de pastel interactivo con Plotly
+        fig = px.pie(
+            language_counts,
+            names='language',
+            values='count',
+            title='Distribución de Idiomas',
+            color_discrete_sequence=px.colors.qualitative.Set3
         )
-        ax.axis('equal')  # Asegura que el gráfico sea circular
 
         # Mostrar el gráfico
-        st.pyplot(fig)
+        st.plotly_chart(fig)
