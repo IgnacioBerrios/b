@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import streamlit as st
 
-ruta = 'spotify_song_dataset.csv'
+ruta = 'spotify_songs_dataset.csv'
 
 df = pd.read_csv(ruta)
 
