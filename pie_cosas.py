@@ -5,7 +5,6 @@ import streamlit as st
 
 file_path = 'data/spotify_song_dataset.csv' 
 
-try:
     df = pd.read_csv(file_path)
     
     if "language" in df.columns:
