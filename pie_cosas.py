@@ -2,33 +2,33 @@ import pandas as pd
 import streamlit as st
 import plotly.express as px
 
-file_path = "spotify_songs_dataset.csv" 
-data = pd.read_csv(file_path, delimiter=';')
+ruta_archivo = "spotify_songs_dataset.csv" 
+datos = pd.read_csv(ruta_archivo, delimiter=';')
 
-if 'language' not in data.columns:
-    st.error("La columna 'language' no se encuentra en el dataset.")
+if 'language' not in datos.columns:
+    st.error("La columna 'language' no se encuentra en el conjunto de datos.")
 else:
     st.title("Distribución de Idiomas por Género")
 
-    selected_genres = st.multiselect(
+    generos_seleccionados = st.multiselect(
         "Selecciona los géneros que deseas analizar:",
-        options=data['genre'].dropna().unique()
+        options=datos['genre'].dropna().unique()
     )
 
-    filtered_data = data[data['genre'].isin(selected_genres)] if selected_genres else data
+    datos_filtrados = datos[datos['genre'].isin(generos_seleccionados)] if generos_seleccionados else datos
 
-    if filtered_data.empty:
+    if datos_filtrados.empty:
         st.warning("No hay datos para los géneros seleccionados.")
     else:
-        language_counts = filtered_data['language'].dropna().value_counts().reset_index()
-        language_counts.columns = ['language', 'count']
+        conteo_idiomas = datos_filtrados['language'].dropna().value_counts().reset_index()
+        conteo_idiomas.columns = ['idioma', 'cantidad']
 
-        fig = px.pie(
-            language_counts,
-            names='language',
-            values='count',
+        figura = px.pie(
+            conteo_idiomas,
+            names='idioma',
+            values='cantidad',
             title='Distribución de Idiomas',
             color_discrete_sequence=px.colors.qualitative.Set3
         )
 
-        st.plotly_chart(fig)
+        st.plotly_chart(figura)
