@@ -27,19 +27,12 @@ else:
         language_counts = filtered_data['language'].dropna().value_counts().reset_index()
         language_counts.columns = ['language', 'count']
 
-        # Mostrar opciones de color personalizables para cada idioma
-        st.subheader("Personalización de colores")
-        colors = {}
-        for lang in language_counts['language']:
-            colors[lang] = st.color_picker(f"Selecciona un color para '{lang}':", "#FFFFFF")
-
-        # Crear gráfico con colores personalizados
+        # Crear gráfico
         fig = px.pie(
             language_counts,
             names='language',
             values='count',
-            title='Distribución de Idiomas',
-            color_discrete_map=colors  # Aplicar colores personalizados
+            title='Distribución de Idiomas'
         )
 
         # Mostrar gráfico en Streamlit
