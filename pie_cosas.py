@@ -30,4 +30,4 @@ else:
             title='Distribución de Idiomas'
         )
 
-        st.plotly_chart(fig)H
+        st.plotly_chart(fig)
